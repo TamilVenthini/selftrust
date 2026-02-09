@@ -1,0 +1,189 @@
+app_name: SelfTrust
+
+scenario:
+  title: "இரவு நேர ஆற்றுமண் கொள்ளை"
+  nature: "Low-visibility, socially normalized environmental violation"
+  location_context: "Rural river used as common natural resource"
+
+PPDTF:
+  People:
+    offender:
+      role: "Local individual extracting river sand"
+      intent:
+        personal: "Livelihood or convenience"
+      law_intent_break:
+        - "Violates regulated extraction intent"
+        - "Bypasses public trust obligation"
+
+    facilitator:
+      role: "Transport helper (bullock cart handler)"
+      intent:
+        personal: "Routine income"
+      law_intent_break:
+        - "Enables unregulated mineral movement"
+
+    witness:
+      role: "Local residents observing activity"
+      intent:
+        social: "Avoid conflict, normalize behavior"
+      law_intent_break:
+        - "Fails community-level commons protection duty"
+
+    local_authority:
+      role: "Panchayat / Village representatives"
+      intent:
+        administrative: "Local governance"
+      law_intent_break:
+        - "Does not escalate repeated violations"
+        - "Allows social normalization"
+
+    enforcement_authority:
+      role: "Revenue / Mining / Environmental officers"
+      intent:
+        statutory: "Enforce permit-based control"
+      law_intent_break:
+        - "Relies on visibility-dependent enforcement"
+        - "No proactive detection mechanism"
+
+    state:
+      role: "Trustee of natural resources"
+      intent:
+        constitutional: "Protect environment and public interest"
+      law_intent_break:
+        - "Trust obligation weakly operationalized at ground level"
+
+    environment:
+      role: "Silent stakeholder"
+      intent:
+        ecological: "Maintain river equilibrium"
+      law_intent_break:
+        - "No representation in enforcement feedback loop"
+
+  Process:
+    expected:
+      description: "Permit-based sand extraction with quantity limits"
+      law_intent:
+        - "Control cumulative environmental impact"
+        - "Maintain riverbed stability"
+    observed:
+      description: "Repeated night-time manual extraction without permits"
+      process_break:
+        - "Permit system bypassed"
+        - "Quantity regulation nullified"
+        - "Supervision avoided"
+
+  Data:
+    expected:
+      types:
+        - "Extraction volume records"
+        - "Permit issuance logs"
+        - "Transport tracking"
+      law_intent:
+        - "Enable enforcement through evidence"
+        - "Detect cumulative harm"
+    observed:
+      condition: "Data absent"
+      data_break:
+        - "No volume tracking"
+        - "No incident reporting"
+        - "No historical pattern visibility"
+
+  Technology:
+    expected:
+      tools:
+        - "Surveillance"
+        - "Tracking or logging mechanisms"
+      law_intent:
+        - "Reduce reliance on human complaint"
+        - "Increase detection certainty"
+    observed:
+      condition: "Technology not deployed"
+      technology_break:
+        - "Enforcement depends on chance visibility"
+        - "Night-time activity remains undetected"
+
+  Facility:
+    asset:
+      name: "River"
+      type: "Shared natural resource (commons)"
+    expected:
+      governance:
+        - "State as trustee"
+        - "Public as beneficiaries"
+      law_intent:
+        - "Preserve ecological balance"
+        - "Protect long-term water security"
+    observed:
+      facility_break:
+        - "Commons treated as ownerless at night"
+        - "Individual benefit overrides collective interest"
+
+Failure_Summary:
+  failure_type: "Intent violation without visible rule resistance"
+  core_reason:
+    - "Low visibility"
+    - "Delayed environmental impact"
+    - "Social normalization"
+    - "Absence of data feedback"
+  constitutional_concern:
+    - "Right to life indirectly compromised"
+    - "Public trust doctrine weakened"
+
+Outcome:
+  short_term:
+    - "No immediate conflict"
+    - "No complaint"
+  long_term:
+    - "Groundwater depletion"
+    - "Riverbank erosion"
+    - "Ecological imbalance"
+    - "Governance legitimacy erosion"
+
+impact_evaluation:
+  factors:
+    facility_damage: true
+    data_absence: true
+    repeated_occurrence: true
+    social_normalization: true
+  impact_level:
+    value: "HIGH"
+    threshold_crossed: 4
+    explanation:
+      - "Shared natural resource degraded"
+      - "Damage accumulates silently"
+      - "No data to trigger enforcement"
+      - "Social acceptance enables repetition"
+
+citizen_trust_scoring:
+  baseline_score: 100
+  deductions:
+    silent_witnessing: 20
+    normalization_acceptance: 20
+  final_score: 60
+
+citizen_output:
+  impact_message: >
+    Impact level has crossed the HIGH threshold.
+    Although no immediate harm is visible,
+    long-term environmental damage is actively accumulating.
+
+  responsibility_message: >
+    Continued silence and normalization of repeated violations
+    has contributed to erosion of collective environmental trust.
+
+  score_message: >
+    Your Civic Trust Score is 60 out of 100.
+    This reflects moderate decline in civic responsibility.
+
+  improvement_guidance: >
+    To improve your score, increase visibility through reporting,
+    discourage normalization, and support local commons protection.
+
+system_summary:
+  law_intent_status:
+    constitutional: "compromised"
+    statutory: "bypassed"
+    administrative: "weakened"
+  governance_health:
+    current_state: "degraded"
+    recovery_possible: true
