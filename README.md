@@ -1,2 +1,2 @@
 # selftrust
-SelfTrust - Constitutional intent awareness prototype using PPDTF and YAML
+SelfTrust – A constitutional awareness prototype that interprets real-world observations using constitutional intent, PPDTF, and trust drift analysis.
