@@ -1,11 +1,425 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>SelfTrust</title>
-  </head>
-  <body>
-    <h1>SelfTrust is running</h1>
-    <p id="output"></p>
-    <script src="app.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SelfTrust - Constitutional Drift Detector</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      border-bottom: 2px solid #334155;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      background: linear-gradient(to right, #60a5fa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      font-size: 0.95em;
+      color: #cbd5e1;
+      margin-bottom: 5px;
+    }
+
+    .header .tamil {
+      font-size: 0.85em;
+      color: #94a3b8;
+    }
+
+    .header .version {
+      font-size: 0.75em;
+      color: #64748b;
+      background: #1e293b;
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    /* Section */
+    section {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    section h2 {
+      color: #60a5fa;
+      font-size: 1.4em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    section h2::before {
+      content: "→";
+      color: #22d3ee;
+      font-weight: bold;
+    }
+
+    .helper-text {
+      color: #94a3b8;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    .tamil-helper {
+      color: #64748b;
+      font-size: 0.85em;
+      margin-bottom: 15px;
+    }
+
+    /* Form Elements */
+    select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 1em;
+      font-family: inherit;
+    }
+
+    select:focus, textarea:focus {
+      outline: none;
+      border-color: #22d3ee;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      background: linear-gradient(to right, #2563eb, #0ea5e9);
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #1d4ed8, #0284c7);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+    }
+
+    button:disabled {
+      background: #334155;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Read-only boxes */
+    .law-box, .drift-box, .ppdtf-box {
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .law-box h3, .drift-box h3, .ppdtf-box h3 {
+      color: #22d3ee;
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+
+    .law-box ul, .drift-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .law-box li, .drift-box li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .law-box li::before {
+      content: "•";
+      color: #22d3ee;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .drift-box li::before {
+      content: "⚠";
+      position: absolute;
+      left: 0;
+    }
+
+    .ppdtf-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px;
+      font-size: 0.95em;
+    }
+
+    .ppdtf-grid .label {
+      color: #60a5fa;
+      font-weight: bold;
+    }
+
+    .ppdtf-grid .value {
+      color: #cbd5e1;
+    }
+
+    /* Result Output */
+    .result-box {
+      background: #0f172a;
+      border: 2px solid #22d3ee;
+      border-radius: 8px;
+      padding: 20px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .impact-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    .impact-high {
+      background: #dc2626;
+      color: white;
+    }
+
+    .impact-medium {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .impact-low {
+      background: #eab308;
+      color: #1e293b;
+    }
+
+    .score-display {
+      font-size: 2em;
+      color: #22d3ee;
+      font-weight: bold;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .ppdtf-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="header">
+      <h1>SelfTrust</h1>
+      <p class="subtitle">
+        A system that interprets everyday observations<br>
+        through constitutional intent and civic trust
+      </p>
+      <p class="tamil">
+        தினசரி நிகழ்வுகளை சட்ட நோக்கம் மற்றும்<br>
+        குடிமக்கள் நம்பிக்கை கோணத்தில் புரிய வைக்கும் அமைப்பு
+      </p>
+      <div class="version">Law Version: 2025-02-08 | Constitution of India + TN Laws</div>
+    </div>
+
+    <!-- SECTION 1: Domain Selection -->
+    <section>
+      <h2>Select Domain</h2>
+      <p class="helper-text">Identifies the system affected</p>
+      <p class="tamil-helper">பாதிக்கப்படும் அமைப்பை தேர்வு செய்யவும்</p>
+
+      <select id="domain" onchange="updateContext()">
+        <option value="River System">River System / ஆற்று அமைப்பு</option>
+        <option value="Forest Commons" disabled>Forest Commons / காடு பொது வளம் (Coming soon)</option>
+        <option value="Groundwater" disabled>Groundwater / நிலத்தடி நீர் (Coming soon)</option>
+      </select>
+    </section>
+
+    <!-- SECTION 2: Context Selection -->
+    <section>
+      <h2>Where did this happen?</h2>
+      <p class="helper-text">Context helps determine which laws and trust boundaries apply</p>
+      <p class="tamil-helper">இடம் சட்டமும் நம்பிக்கையும் எங்கு பாதிக்கப்படுகின்றன என்பதை காட்டுகிறது</p>
+
+      <select id="context">
+        <option value="River Bed – Night-time">River Bed – Night-time / ஆற்றுப்படுகை – இரவு நேரம்</option>
+        <option value="River Bed – Daytime">River Bed – Daytime / ஆற்றுப்படுகை – பகல் நேரம்</option>
+        <option value="River Bank – Continuous">River Bank – Continuous / ஆற்றங்கரை – தொடர்ச்சி</option>
+        <option value="River Bank – Permanent">River Bank – Permanent / ஆற்றங்கரை – நிரந்தரம்</option>
+        <option value="River Flow – Night-time">River Flow – Night-time / நீர் ஓட்டம் – இரவு</option>
+        <option value="River Flow – Continuous">River Flow – Continuous / நீர் ஓட்டம் – தொடர்ச்சி</option>
+      </select>
+    </section>
+
+    <!-- SECTION 3: User Observation -->
+    <section>
+      <h2>Describe What You Observed</h2>
+      <p class="helper-text">Describe only what you saw. No judgement.</p>
+      <p class="tamil-helper">நீங்கள் பார்த்ததை மட்டும் எழுதுங்கள். தீர்ப்பு அல்லது குற்றச்சாட்டு வேண்டாம்.</p>
+
+      <textarea id="observation" placeholder="Example: Night-time sand extraction using bullock cart...">Night-time sand extraction using bullock cart</textarea>
+
+      <button onclick="analyze()" id="analyzeBtn">Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க</button>
+    </section>
+
+    <!-- SECTION 4: Law Intent (Initially Hidden) -->
+    <section id="lawSection" class="hidden">
+      <h2>Relevant Law Intent</h2>
+      <div class="law-box">
+        <h3>Constitutional & Statutory Principles:</h3>
+        <ul id="lawList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <p class="tamil-helper" style="margin-top: 15px;">
+        சட்ட நோக்கம்:<br>
+        <span id="lawTamil"><!-- Populated by JS --></span>
+      </p>
+    </section>
+
+    <!-- SECTION 5: Trust Drift (Initially Hidden) -->
+    <section id="driftSection" class="hidden">
+      <h2>Trust Drift Detected</h2>
+      <div class="drift-box">
+        <h3>Where Trust Boundaries Break:</h3>
+        <ul id="driftList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <p class="tamil-helper" style="margin-top: 15px;">
+        நம்பிக்கை சிதைவு:<br>
+        <span id="driftTamil"><!-- Populated by JS --></span>
+      </p>
+    </section>
+
+    <!-- SECTION 6: PPDTF Analysis (Initially Hidden) -->
+    <section id="ppdtfSection" class="hidden">
+      <h2>PPDTF Analysis</h2>
+      <div class="ppdtf-box">
+        <div id="ppdtfBreakdown">
+          <!-- Populated dynamically by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Impact & Trust Score (Initially Hidden) -->
+    <section id="impactSection" class="hidden">
+      <h2>Impact Evaluation</h2>
+      
+      <div style="text-align: center; margin: 20px 0;">
+        <p style="color: #94a3b8; margin-bottom: 10px;">Impact Level:</p>
+        <span id="impactBadge" class="impact-badge">–</span>
+        <p id="impactFactors" style="color: #64748b; font-size: 0.9em; margin-top: 10px;">–</p>
+      </div>
+
+      <div style="text-align: center; margin: 30px 0;">
+        <p style="color: #94a3b8; margin-bottom: 10px;">Civic Trust Score:</p>
+        <div class="score-display"><span id="trustScore">–</span> / 100</div>
+        <p style="color: #64748b; font-size: 0.9em;">
+          (<span id="scoreStatus">–</span>)
+        </p>
+      </div>
+
+      <div class="law-box">
+        <h3>Score Deductions:</h3>
+        <ul id="deductionsList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Next Actions (Initially Hidden) -->
+    <section id="actionsSection" class="hidden">
+      <h2>What Should YOU Do Now?</h2>
+      <p id="userRole" style="color: #22d3ee; font-weight: bold; margin-bottom: 15px;">Your Role</p>
+
+      <div class="law-box">
+        <h3>Recommended Actions:</h3>
+        <ul id="actionsList">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <p class="tamil-helper" style="margin-top: 15px;">
+        <span id="actionsTamil"><!-- Populated by JS --></span>
+      </p>
+    </section>
+
+    <!-- SECTION 9: System Interpretation (Initially Hidden) -->
+    <section id="resultSection" class="hidden">
+      <h2>Complete System Interpretation (Printable Report)</h2>
+      <div class="result-box" id="result">
+        Awaiting analysis...
+      </div>
+      <button id="printBtn" onclick="printReport()" class="hidden" style="margin-top: 15px; background: linear-gradient(to right, #16a34a, #059669);">
+        🖨️ Print Report / அறிக்கையை அச்சிடுக
+      </button>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
