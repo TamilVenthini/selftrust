@@ -54,7 +54,7 @@ When you observe something in daily life and feel
 
 
 
-\### Option 1: Simple (Recommended)
+\### Option 1: Simple 
 
 
 
@@ -82,27 +82,27 @@ When you observe something in daily life and feel
 
 Describe what you observed
 
-&nbsp;       ↓
+             ↓
 
 System interprets the situation
 
-&nbsp;       ↓
+             ↓
 
 Relevant law intent is identified
 
-&nbsp;       ↓
+             ↓
 
 Trust drift is detected
 
-&nbsp;       ↓
+             ↓
 
 Impact level is evaluated
 
-&nbsp;       ↓
+             ↓
 
 Your civic trust score is shown
 
-&nbsp;       ↓
+             ↓
 
 Role-based next action is suggested
 
@@ -162,11 +162,11 @@ Example:
 
 
 
-&nbsp;This is NOT a police app
+This is NOT a police app
 
-&nbsp;It does NOT file complaints or FIRs
+It does NOT file complaints or FIRs
 
-&nbsp;It does NOT label anyone as a criminal
+It does NOT label anyone as a criminal
 
 
 
@@ -180,7 +180,7 @@ Example:
 
 
 
-\##  PPDTF Framework (Simple Explanation)
+\##  PPDTF Framework 
 
 
 
@@ -286,9 +286,9 @@ selftrust/
 
 ├── data/
 
-│   ├── scenarios.json
+    ├── scenarios.json
 
-│   └── river\_sand\_incident.yml
+    └── river\_sand\_incident.yml
 
 ```
 

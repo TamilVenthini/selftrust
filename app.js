@@ -2,16 +2,156 @@
 let scenarios = [];
 let currentAnalysis = null;
 
-// Load scenarios on page load
+// Embedded fallback scenario (in case JSON loading fails due to CORS)
+const fallbackScenarios = [
+  {
+    "id": "night_sand_manual",
+    "keywords": ["sand", "night", "bullock", "மண்", "இரவு", "extraction", "cart", "manual"],
+    "title": "இரவு நேர ஆற்றுமண் கொள்ளை",
+    "title_en": "Night-time Sand Extraction",
+    "nature": "Low-visibility, socially normalized environmental violation",
+    "domain": "River System",
+    "context": "River Bed – Night-time",
+    "law_intent": [
+      "Natural resources are held in public trust by the State (Public Trust Doctrine)",
+      "Environmental damage can be delayed but cumulative (Article 21 - Right to Life)",
+      "Silence does not imply consent (73rd Amendment - Community Participation)"
+    ],
+    "law_intent_tamil": [
+      "இயற்கை வளங்கள் அரசு நம்பிக்கையில் பாதுகாக்கப்பட வேண்டும்",
+      "சுற்றுச்சூழல் பாதிப்பு மெதுவாக சேரும் ஆனால் கூட்டுத்தொகை ஆபத்தானது",
+      "மௌனம் சம்மதம் அல்ல"
+    ],
+    "trust_drift": [
+      "Citizen ↔ River: Silent witnessing normalized, environmental dependency invisibilized",
+      "State ↔ Commons: Trust obligation exists in law but not in ground enforcement",
+      "Community ↔ Silence: Social cohesion prioritized over commons protection",
+      "Law ↔ Enforcement: Regulatory intent undermined by operational gaps"
+    ],
+    "trust_drift_tamil": [
+      "குடிமகன் – மௌனம் பழக்கமாகிறது, சுற்றுச்சூழல் சார்பு மறைக்கப்படுகிறது",
+      "அரசு – நம்பிக்கைக் கடமை சட்டத்தில் உள்ளது ஆனால் நடைமுறையில் இல்லை",
+      "சமூகம் – சமூக நல்லிணக்கம் பொது வள பாதுகாப்பை விட முக்கியமாக்கப்படுகிறது",
+      "சட்டம் – ஒழுங்குமுறை நோக்கம் செயல்பாட்டு இடைவெளிகளால் குறைமதிப்பிடப்படுகிறது"
+    ],
+    "ppdtf": {
+      "people": {
+        "offender": {
+          "role": "Local individual extracting river sand",
+          "intent": "Livelihood or convenience",
+          "law_break": ["Violates regulated extraction intent", "Bypasses public trust obligation"]
+        },
+        "facilitator": {
+          "role": "Transport helper (bullock cart handler)",
+          "intent": "Routine income",
+          "law_break": ["Enables unregulated mineral movement"]
+        },
+        "witness": {
+          "role": "Local residents observing activity",
+          "intent": "Avoid conflict, normalize behavior",
+          "law_break": ["Fails community-level commons protection duty"]
+        },
+        "local_authority": {
+          "role": "Panchayat / Village representatives",
+          "intent": "Local governance",
+          "law_break": ["Does not escalate repeated violations", "Allows social normalization"]
+        },
+        "enforcement_authority": {
+          "role": "Revenue / Mining / Environmental officers",
+          "intent": "Enforce permit-based control",
+          "law_break": ["Relies on visibility-dependent enforcement", "No proactive detection mechanism"]
+        },
+        "state": {
+          "role": "Trustee of natural resources",
+          "intent": "Protect environment and public interest",
+          "law_break": ["Trust obligation weakly operationalized at ground level"]
+        },
+        "environment": {
+          "role": "Silent stakeholder",
+          "intent": "Maintain river equilibrium",
+          "law_break": ["No representation in enforcement feedback loop"]
+        }
+      },
+      "process": {
+        "expected": "Permit-based sand extraction with quantity limits",
+        "expected_intent": ["Control cumulative environmental impact", "Maintain riverbed stability"],
+        "observed": "Repeated night-time manual extraction without permits",
+        "breaks": ["Permit system bypassed", "Quantity regulation nullified", "Supervision avoided"]
+      },
+      "data": {
+        "expected": ["Extraction volume records", "Permit issuance logs", "Transport tracking"],
+        "expected_intent": ["Enable enforcement through evidence", "Detect cumulative harm"],
+        "observed": "Data absent",
+        "breaks": ["No volume tracking", "No incident reporting", "No historical pattern visibility"]
+      },
+      "technology": {
+        "expected": ["Surveillance cameras", "GPS tracking", "Automated alerts"],
+        "expected_intent": ["Reduce reliance on human complaint", "Increase detection certainty"],
+        "observed": "Technology not deployed",
+        "breaks": ["Enforcement depends on chance visibility", "Night-time activity remains undetected"]
+      },
+      "facility": {
+        "asset": "River (Shared natural resource / commons)",
+        "expected": "State as trustee, Public as beneficiaries",
+        "expected_intent": ["Preserve ecological balance", "Protect long-term water security"],
+        "observed": "Commons treated as ownerless at night",
+        "breaks": ["Individual benefit overrides collective interest"]
+      }
+    },
+    "impact_level": "HIGH",
+    "impact_factors": {
+      "facility_damage": true,
+      "data_absence": true,
+      "repeated_occurrence": true,
+      "social_normalization": true,
+      "threshold_crossed": 4
+    },
+    "trust_score": 60,
+    "trust_deductions": {
+      "silent_witnessing": 20,
+      "normalization_acceptance": 20
+    },
+    "user_role": "witness",
+    "next_actions": {
+      "witness": {
+        "low": ["Recognize this as commons degradation, not individual activity", "Do not normalize as 'small thing'", "Share factual awareness in conversations"],
+        "medium": ["Anonymous reporting to Revenue/Environmental authorities", "Create community signal (information, not complaint)", "Document pattern if repeated"],
+        "high": ["Trigger authority attention through formal channels", "Connect with local environmental groups", "Request surveillance/monitoring at site"]
+      },
+      "authority": {
+        "immediate": ["Log incident in official records", "Issue notice to enforcement department", "Convene community awareness meeting"],
+        "systematic": ["Request periodic monitoring", "Establish incident reporting channel", "Document cumulative impact evidence"]
+      }
+    },
+    "next_actions_tamil": {
+      "witness": {
+        "low": ["இதை பொது வள சீரழிவாக அங்கீகரிக்கவும், தனிநபர் செயலாக அல்ல", "'சிறிய விஷயம்' என இயல்பாக்க வேண்டாம்", "உரையாடல்களில் உண்மை விழிப்புணர்வைப் பகிர்ந்து கொள்ளுங்கள்"],
+        "medium": ["வருவாய்/சுற்றுச்சூழல் அதிகாரிகளுக்கு அநாமதேய அறிக்கை", "சமூக சமிக்ஞையை உருவாக்குங்கள் (தகவல், புகார் அல்ல)", "மீண்டும் நடந்தால் வடிவத்தை ஆவணப்படுத்துங்கள்"],
+        "high": ["முறையான வழிகள் மூலம் அதிகாரத்தின் கவனத்தைத் தூண்டுங்கள்", "உள்ளூர் சுற்றுச்சூழல் குழுக்களுடன் இணைக்கவும்", "தளத்தில் கண்காணிப்பு கோருங்கள்"]
+      },
+      "authority": {
+        "immediate": ["உத்தியோகபூர்வ பதிவுகளில் சம்பவத்தை பதிவு செய்யுங்கள்", "அமலாக்கத் துறைக்கு அறிவிப்பு வெளியிடுங்கள்", "சமூக விழிப்புணர்வு கூட்டத்தை கூட்டுங்கள்"],
+        "systematic": ["அவ்வப்போது கண்காணிப்பு கோருங்கள்", "சம்பவ அறிக்கை சேனலை நிறுவவும்", "ஒட்டுமொத்த தாக்க சான்றுகளை ஆவணப்படுத்துங்கள்"]
+      }
+    }
+  }
+];
+
+// Try to load scenarios from JSON, fallback to embedded if fails
 fetch('data/scenarios.json')
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) throw new Error('JSON not found');
+    return response.json();
+  })
   .then(data => {
     scenarios = data.scenarios;
-    console.log(`Loaded ${scenarios.length} scenarios`);
+    console.log(`✅ Loaded ${scenarios.length} scenarios from JSON`);
   })
   .catch(error => {
-    console.error('Error loading scenarios:', error);
-    alert('Could not load scenarios database. Please check that scenarios.json exists in the data folder.');
+    console.warn('⚠️ Could not load scenarios.json, using embedded fallback');
+    console.warn('To fix: Run a local server instead of opening file:// directly');
+    console.warn('Error:', error);
+    scenarios = fallbackScenarios;
   });
 
 // Update context options based on domain
@@ -34,27 +174,48 @@ function analyze() {
     return;
   }
 
+  if (!context) {
+    alert('Please select where this happened (context)');
+    return;
+  }
+
+  // Check if scenarios are loaded
+  if (scenarios.length === 0) {
+    alert('Scenarios database is still loading. Please wait a moment and try again.');
+    return;
+  }
+
   // Disable button during analysis
   const btn = document.getElementById('analyzeBtn');
   btn.disabled = true;
   btn.textContent = 'Analyzing...';
 
-  // Find matching scenario
-  const matchedScenario = findMatchingScenario(observation, domain, context);
+  // Small delay to show loading state
+  setTimeout(() => {
+    try {
+      // Find matching scenario
+      const matchedScenario = findMatchingScenario(observation, domain, context);
 
-  if (!matchedScenario) {
-    alert('No matching scenario found. Using default river violation analysis.');
-    btn.disabled = false;
-    btn.textContent = 'Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க';
-    return;
-  }
+      if (!matchedScenario) {
+        alert('No matching scenario found. Using default river violation analysis.');
+        btn.disabled = false;
+        btn.textContent = 'Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க';
+        return;
+      }
 
-  // Display analysis
-  displayAnalysis(matchedScenario, observation);
+      // Display analysis
+      displayAnalysis(matchedScenario, observation);
 
-  // Re-enable button
-  btn.disabled = false;
-  btn.textContent = 'Analyze Another Situation';
+      // Re-enable button
+      btn.disabled = false;
+      btn.textContent = 'Analyze Another Situation';
+    } catch (error) {
+      console.error('Analysis error:', error);
+      alert('An error occurred during analysis. Please check the console for details.');
+      btn.disabled = false;
+      btn.textContent = 'Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க';
+    }
+  }, 500);
 }
 
 // Smart keyword matching
@@ -595,4 +756,3 @@ function printReport() {
   printWindow.document.close();
   printWindow.print();
 }
-
