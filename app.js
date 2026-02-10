@@ -845,7 +845,7 @@ function displayAnalysis(scenario, userObservation) {
 
   // Scroll to law section
   document.getElementById('lawSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+//}
 
 // Generate printable report
 function generatePrintableReport(scenario, observation) {
