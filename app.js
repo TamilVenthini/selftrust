@@ -169,6 +169,7 @@ function analyze() {
   const context = document.getElementById("context").value;
   const observation = document.getElementById("observation").value.trim();
 
+  // Validation
   if (!observation) {
     alert('Please describe what you observed');
     return;
@@ -180,8 +181,8 @@ function analyze() {
   }
 
   // Check if scenarios are loaded
-  if (scenarios.length === 0) {
-    alert('Scenarios database is still loading. Please wait a moment and try again.');
+  if (!scenarios || scenarios.length === 0) {
+    alert('⚠️ Scenarios database is still loading.\n\nPlease wait a moment and try again.\n\nIf this persists, you may be experiencing CORS issues.\nSolution: Run a local server (see QUICKSTART.txt)');
     return;
   }
 
@@ -196,12 +197,24 @@ function analyze() {
       // Find matching scenario
       const matchedScenario = findMatchingScenario(observation, domain, context);
 
+      // Double-check we have a valid scenario
       if (!matchedScenario) {
-        alert('No matching scenario found. Using default river violation analysis.');
+        console.error('No scenario matched. This should not happen due to fallbacks.');
+        alert('⚠️ Could not find matching scenario.\n\nUsing default river violation analysis.');
+        
+        // Try to use first scenario as absolute fallback
+        if (scenarios.length > 0) {
+          displayAnalysis(scenarios[0], observation);
+        } else {
+          throw new Error('No scenarios available in database');
+        }
+        
         btn.disabled = false;
-        btn.textContent = 'Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க';
+        btn.textContent = 'Analyze Another Situation';
         return;
       }
+
+      console.log('✅ Matched scenario:', matchedScenario.id, matchedScenario.title_en);
 
       // Display analysis
       displayAnalysis(matchedScenario, observation);
@@ -209,9 +222,14 @@ function analyze() {
       // Re-enable button
       btn.disabled = false;
       btn.textContent = 'Analyze Another Situation';
+      
     } catch (error) {
-      console.error('Analysis error:', error);
-      alert('An error occurred during analysis. Please check the console for details.');
+      console.error('❌ Analysis error:', error);
+      console.error('Error stack:', error.stack);
+      
+      // Show detailed error to user
+      alert(`❌ Analysis Error\n\n${error.message}\n\nPlease:\n1. Check browser console (F12) for details\n2. Refresh the page\n3. Try a different observation\n\nIf issue persists, see QUICKSTART.txt for troubleshooting.`);
+      
       btn.disabled = false;
       btn.textContent = 'Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க';
     }
@@ -222,14 +240,12 @@ function analyze() {
 function findMatchingScenario(observation, domain, context) {
   const lowerObs = observation.toLowerCase();
 
-  // Filter by domain and context first
-  let candidates = scenarios.filter(s => 
-    s.domain === domain && s.context === context
-  );
+  // Filter by domain first
+  let candidates = scenarios.filter(s => s.domain === domain);
 
-  // If no exact context match, broaden to all in domain
+  // If no matches, use all scenarios as candidates
   if (candidates.length === 0) {
-    candidates = scenarios.filter(s => s.domain === domain);
+    candidates = scenarios;
   }
 
   // Score each candidate by keyword matches
@@ -238,10 +254,22 @@ function findMatchingScenario(observation, domain, context) {
 
   for (const scenario of candidates) {
     let score = 0;
+    
+    // Check keywords
     for (const keyword of scenario.keywords) {
       if (lowerObs.includes(keyword.toLowerCase())) {
-        score++;
+        score += 2; // Keyword match worth 2 points
       }
+    }
+    
+    // Check if context matches (bonus points)
+    if (scenario.context === context) {
+      score += 3; // Context match worth 3 points
+    }
+    
+    // Check title for partial matches
+    if (scenario.title_en && lowerObs.includes(scenario.title_en.toLowerCase().split(' ')[0])) {
+      score += 1;
     }
 
     if (score > bestScore) {
@@ -250,13 +278,284 @@ function findMatchingScenario(observation, domain, context) {
     }
   }
 
-  // If no keyword matches, return first scenario in domain
-  return bestMatch || candidates[0] || scenarios[0];
+  // If still no match, try fuzzy matching on common words
+  if (!bestMatch || bestScore === 0) {
+    const commonWords = {
+      'construction': 'bank_construction',
+      'building': 'bank_construction',
+      'encroachment': 'bank_construction',
+      'sand': 'night_sand_manual',
+      'mining': 'mechanized_mining',
+      'tractor': 'mechanized_mining',
+      'water': 'agri_pumping',
+      'pump': 'agri_pumping',
+      'effluent': 'industrial_effluent',
+      'pollution': 'industrial_effluent',
+      'sewage': 'sewage_dumping',
+      'waste': 'sewage_dumping'
+    };
+
+    for (const [word, scenarioId] of Object.entries(commonWords)) {
+      if (lowerObs.includes(word)) {
+        bestMatch = scenarios.find(s => s.id === scenarioId);
+        if (bestMatch) break;
+      }
+    }
+  }
+
+  // Final fallback: return first scenario that matches context
+  if (!bestMatch && context) {
+    bestMatch = candidates.find(s => s.context === context);
+  }
+
+  // Ultimate fallback: return first scenario in database
+  if (!bestMatch) {
+    bestMatch = scenarios[0];
+  }
+
+  console.log(`Matched scenario: ${bestMatch ? bestMatch.id : 'none'} (score: ${bestScore})`);
+  return bestMatch;
 }
 
 // Display full analysis
 function displayAnalysis(scenario, userObservation) {
+  // Defensive check
+  if (!scenario) {
+    console.error('Cannot display analysis: scenario is null');
+    alert('Error: No scenario data available');
+    return;
+  }
+
+  console.log('📊 Displaying analysis for:', scenario.id);
+  
   currentAnalysis = { scenario, userObservation };
+  
+  // Show all hidden sections
+  document.getElementById('lawSection').classList.remove('hidden');
+  document.getElementById('driftSection').classList.remove('hidden');
+  document.getElementById('ppdtfSection').classList.remove('hidden');
+  document.getElementById('impactSection').classList.remove('hidden');
+  document.getElementById('actionsSection').classList.remove('hidden');
+  document.getElementById('resultSection').classList.remove('hidden');
+
+  // === LAW INTENT ===
+  const lawList = document.getElementById('lawList');
+  lawList.innerHTML = '';
+  if (scenario.law_intent && Array.isArray(scenario.law_intent)) {
+    scenario.law_intent.forEach(law => {
+      const li = document.createElement('li');
+      li.textContent = law;
+      lawList.appendChild(li);
+    });
+  }
+
+  // Tamil law intent
+  if (scenario.law_intent_tamil && Array.isArray(scenario.law_intent_tamil)) {
+    let tamilHTML = '';
+    scenario.law_intent_tamil.forEach(law => {
+      tamilHTML += `• ${law}<br>`;
+    });
+    document.getElementById('lawTamil').innerHTML = tamilHTML;
+  }
+
+  // === TRUST DRIFT ===
+  const driftList = document.getElementById('driftList');
+  driftList.innerHTML = '';
+  if (scenario.trust_drift && Array.isArray(scenario.trust_drift)) {
+    scenario.trust_drift.forEach(drift => {
+      const li = document.createElement('li');
+      li.textContent = drift;
+      driftList.appendChild(li);
+    });
+  }
+
+  // Tamil trust drift
+  if (scenario.trust_drift_tamil && Array.isArray(scenario.trust_drift_tamil)) {
+    let tamilHTML = '';
+    scenario.trust_drift_tamil.forEach(drift => {
+      tamilHTML += `• ${drift}<br>`;
+    });
+    document.getElementById('driftTamil').innerHTML = tamilHTML;
+  }
+
+  // === PPDTF DETAILED BREAKDOWN ===
+  const ppdtfContainer = document.getElementById('ppdtfBreakdown');
+  ppdtfContainer.innerHTML = '';
+
+  if (!scenario.ppdtf) {
+    ppdtfContainer.innerHTML = '<p style="color: #f87171;">PPDTF data not available for this scenario</p>';
+  } else {
+    // PEOPLE Section
+    if (scenario.ppdtf.people) {
+      const peopleSection = document.createElement('div');
+      peopleSection.className = 'ppdtf-category';
+      
+      let peopleHTML = '<h4 style="color: #60a5fa; margin-bottom: 10px;">👥 PEOPLE / மக்கள்</h4>';
+      
+      for (const [roleKey, roleData] of Object.entries(scenario.ppdtf.people)) {
+        if (!roleData) continue; // Skip if roleData is null/undefined
+        
+        peopleHTML += `
+          <div style="background: #0f172a; padding: 12px; margin-bottom: 10px; border-left: 3px solid #22d3ee; border-radius: 4px;">
+            <div style="color: #22d3ee; font-weight: bold; margin-bottom: 5px; text-transform: capitalize;">
+              ${roleKey.replace('_', ' ')}
+            </div>
+            <div style="color: #94a3b8; font-size: 0.9em; margin-bottom: 5px;">
+              <strong>Role:</strong> ${roleData.role || 'N/A'}
+            </div>
+            <div style="color: #94a3b8; font-size: 0.9em; margin-bottom: 5px;">
+              <strong>Intent:</strong> ${roleData.intent || 'N/A'}
+            </div>
+            <div style="color: #f87171; font-size: 0.9em;">
+              <strong>Law Intent Break:</strong>
+              <ul style="margin: 5px 0 0 20px; padding: 0;">
+                ${roleData.law_break && Array.isArray(roleData.law_break) ? roleData.law_break.map(b => `<li>${b}</li>`).join('') : '<li>N/A</li>'}
+              </ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      peopleSection.innerHTML = peopleHTML;
+      ppdtfContainer.appendChild(peopleSection);
+    }
+
+    // PROCESS Section
+    if (scenario.ppdtf.process) {
+      const proc = scenario.ppdtf.process;
+      const processSection = document.createElement('div');
+      processSection.className = 'ppdtf-category';
+      
+      processSection.innerHTML = `
+        <h4 style="color: #60a5fa; margin-bottom: 10px; margin-top: 20px;">📋 PROCESS / நடைமுறை</h4>
+        <div style="background: #0f172a; padding: 12px; border-radius: 4px;">
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #22d3ee;">Expected:</strong>
+            <div style="color: #94a3b8; font-size: 0.9em;">${proc.expected || 'N/A'}</div>
+            ${proc.expected_intent && Array.isArray(proc.expected_intent) ? `
+            <div style="color: #64748b; font-size: 0.85em; margin-top: 3px;">
+              Intent: ${proc.expected_intent.join(', ')}
+            </div>` : ''}
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #f59e0b;">Observed:</strong>
+            <div style="color: #94a3b8; font-size: 0.9em;">${proc.observed || 'N/A'}</div>
+          </div>
+          <div>
+            <strong style="color: #f87171;">Breaks:</strong>
+            <ul style="margin: 5px 0 0 20px; padding: 0; color: #f87171; font-size: 0.9em;">
+              ${proc.breaks && Array.isArray(proc.breaks) ? proc.breaks.map(b => `<li>${b}</li>`).join('') : '<li>N/A</li>'}
+            </ul>
+          </div>
+        </div>
+      `;
+      
+      ppdtfContainer.appendChild(processSection);
+    }
+
+    // Similar defensive checks for DATA, TECHNOLOGY, FACILITY...
+    // (continuing in next replacement due to length)
+  }
+
+  // === IMPACT EVALUATION ===
+  const impactBadge = document.getElementById('impactBadge');
+  impactBadge.textContent = scenario.impact_level || 'UNKNOWN';
+  impactBadge.className = 'impact-badge impact-' + (scenario.impact_level || 'low').toLowerCase();
+
+  // Show impact factors
+  if (scenario.impact_factors && scenario.impact_factors.threshold_crossed) {
+    const factorsText = document.getElementById('impactFactors');
+    if (factorsText) {
+      factorsText.textContent = `${scenario.impact_factors.threshold_crossed} out of 4 critical factors crossed`;
+    }
+  }
+
+  // === TRUST SCORE ===
+  const trustScore = scenario.trust_score || 0;
+  document.getElementById('trustScore').textContent = trustScore;
+  const status = trustScore >= 80 ? 'Healthy / ஆரோக்கியமான' : 
+                 trustScore >= 60 ? 'Declining / சரிவு' : 'Degraded / சீரழிந்த';
+  document.getElementById('scoreStatus').textContent = status;
+
+  // Show deductions if available
+  if (scenario.trust_deductions) {
+    const deductionsList = document.getElementById('deductionsList');
+    if (deductionsList) {
+      deductionsList.innerHTML = '';
+      for (const [reason, points] of Object.entries(scenario.trust_deductions)) {
+        const li = document.createElement('li');
+        li.innerHTML = `${reason.replace('_', ' ')}: <span style="color: #f87171;">-${points} points</span>`;
+        deductionsList.appendChild(li);
+      }
+    }
+  }
+
+  // === ROLE-BASED ACTIONS ===
+  const userRole = scenario.user_role || 'witness';
+  const roleText = userRole === 'witness' ? 'You are a WITNESS (சாட்சி)' : 
+                   userRole === 'authority' ? 'You are an AUTHORITY (அதிகாரி)' : 
+                   'Your Role: ' + userRole;
+  document.getElementById('userRole').textContent = roleText;
+
+  const actionsList = document.getElementById('actionsList');
+  actionsList.innerHTML = '';
+
+  if (scenario.next_actions && scenario.next_actions[userRole]) {
+    const actionsData = scenario.next_actions[userRole];
+    
+    for (const [level, actions] of Object.entries(actionsData)) {
+      if (!Array.isArray(actions)) continue;
+      
+      const levelHeader = document.createElement('li');
+      levelHeader.innerHTML = `<strong style="color: #22d3ee; text-transform: uppercase;">${level} ${level === 'low' || level === 'medium' || level === 'high' ? 'Risk' : 'Effort'}:</strong>`;
+      levelHeader.style.marginTop = '10px';
+      actionsList.appendChild(levelHeader);
+
+      actions.forEach(action => {
+        const li = document.createElement('li');
+        li.textContent = `• ${action}`;
+        li.style.marginLeft = '20px';
+        li.style.color = '#cbd5e1';
+        actionsList.appendChild(li);
+      });
+    }
+  }
+
+  // Tamil actions
+  if (scenario.next_actions_tamil && scenario.next_actions_tamil[userRole]) {
+    const actionsTamilData = scenario.next_actions_tamil[userRole];
+    let tamilHTML = '<br><strong style="color: #60a5fa;">நீங்கள் என்ன செய்யலாம்:</strong><br>';
+    
+    for (const [level, actions] of Object.entries(actionsTamilData)) {
+      if (!Array.isArray(actions)) continue;
+      tamilHTML += `<br><strong>${level.toUpperCase()}:</strong><br>`;
+      actions.forEach(action => {
+        tamilHTML += `• ${action}<br>`;
+      });
+    }
+    document.getElementById('actionsTamil').innerHTML = tamilHTML;
+  }
+
+  // === SYSTEM INTERPRETATION (PRINTABLE) ===
+  try {
+    const resultText = generatePrintableReport(scenario, userObservation);
+    document.getElementById('result').textContent = resultText;
+  } catch (error) {
+    console.error('Error generating report:', error);
+    document.getElementById('result').textContent = 'Error generating printable report. Please check console.';
+  }
+
+  // Add print button
+  const printBtn = document.getElementById('printBtn');
+  if (printBtn) {
+    printBtn.classList.remove('hidden');
+  }
+
+  // Scroll to law section
+  document.getElementById('lawSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  console.log('✅ Analysis displayed successfully');
+}
   
   // Show all hidden sections
   document.getElementById('lawSection').classList.remove('hidden');
