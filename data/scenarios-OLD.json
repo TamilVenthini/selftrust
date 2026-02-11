@@ -1,0 +1,666 @@
+{
+  "scenarios": [
+    {
+      "id": "river_bed_night",
+      "keywords": ["sand", "night", "bullock", "மண்", "இரவு", "extraction", "cart", "manual"],
+      "title": "இரவு நேர ஆற்றுமண் கொள்ளை",
+      "title_en": "Night-time Sand Extraction",
+      "nature": "Low-visibility, socially normalized environmental violation",
+      "domain": "River System",
+      "context": "river_bed_night",
+      "law_intent": [
+        "Natural resources are held in public trust by the State (Public Trust Doctrine)",
+        "Environmental damage can be delayed but cumulative (Article 21 - Right to Life)",
+        "Silence does not imply consent (73rd Amendment - Community Participation)"
+      ],
+      "law_intent_tamil": [
+        "இயற்கை வளங்கள் அரசு நம்பிக்கையில் பாதுகாக்கப்பட வேண்டும்",
+        "சுற்றுச்சூழல் பாதிப்பு மெதுவாக சேரும் ஆனால் கூட்டுத்தொகை ஆபத்தானது",
+        "மௌனம் சம்மதம் அல்ல"
+      ],
+      "trust_drift": [
+        "Citizen ↔ River: Silent witnessing normalized, environmental dependency invisibilized",
+        "State ↔ Commons: Trust obligation exists in law but not in ground enforcement",
+        "Community ↔ Silence: Social cohesion prioritized over commons protection",
+        "Law ↔ Enforcement: Regulatory intent undermined by operational gaps"
+      ],
+      "trust_drift_tamil": [
+        "குடிமகன் – மௌனம் பழக்கமாகிறது",
+        "அரசு – சட்டத்தில் உள்ளது ஆனால் நடைமுறையில் இல்லை",
+        "சமூகம் – நல்லிணக்கம் பாதுகாப்பை விட முக்கியம்",
+        "சட்டம் – செயல்பாட்டு இடைவெளிகள்"
+      ],
+      "ppdtf": {
+        "people": {
+          "offender": {
+            "role": "Local individual extracting river sand",
+            "intent": "Livelihood or convenience",
+            "law_break": ["Violates regulated extraction intent", "Bypasses public trust obligation"]
+          },
+          "facilitator": {
+            "role": "Transport helper (bullock cart handler)",
+            "intent": "Routine income",
+            "law_break": ["Enables unregulated mineral movement"]
+          },
+          "witness": {
+            "role": "Local residents observing activity",
+            "intent": "Avoid conflict, normalize behavior",
+            "law_break": ["Fails community-level commons protection duty"]
+          },
+          "local_authority": {
+            "role": "Panchayat / Village representatives",
+            "intent": "Local governance",
+            "law_break": ["Does not escalate repeated violations", "Allows social normalization"]
+          },
+          "enforcement_authority": {
+            "role": "Revenue / Mining / Environmental officers",
+            "intent": "Enforce permit-based control",
+            "law_break": ["Relies on visibility-dependent enforcement", "No proactive detection mechanism"]
+          },
+          "state": {
+            "role": "Trustee of natural resources",
+            "intent": "Protect environment and public interest",
+            "law_break": ["Trust obligation weakly operationalized at ground level"]
+          },
+          "environment": {
+            "role": "Silent stakeholder",
+            "intent": "Maintain river equilibrium",
+            "law_break": ["No representation in enforcement feedback loop"]
+          }
+        },
+        "process": {
+          "expected": "Permit-based sand extraction with quantity limits",
+          "expected_intent": ["Control cumulative environmental impact", "Maintain riverbed stability"],
+          "observed": "Repeated night-time manual extraction without permits",
+          "breaks": ["Permit system bypassed", "Quantity regulation nullified", "Supervision avoided"]
+        },
+        "data": {
+          "expected": ["Extraction volume records", "Permit issuance logs", "Transport tracking"],
+          "expected_intent": ["Enable enforcement through evidence", "Detect cumulative harm"],
+          "observed": "Data absent",
+          "breaks": ["No volume tracking", "No incident reporting", "No historical pattern visibility"]
+        },
+        "technology": {
+          "expected": ["Surveillance cameras", "GPS tracking", "Automated alerts"],
+          "expected_intent": ["Reduce reliance on human complaint", "Increase detection certainty"],
+          "observed": "Technology not deployed",
+          "breaks": ["Enforcement depends on chance visibility", "Night-time activity remains undetected"]
+        },
+        "facility": {
+          "asset": "River (Shared natural resource / commons)",
+          "expected": "State as trustee, Public as beneficiaries",
+          "expected_intent": ["Preserve ecological balance", "Protect long-term water security"],
+          "observed": "Commons treated as ownerless at night",
+          "breaks": ["Individual benefit overrides collective interest"]
+        }
+      },
+      "impact_level": "HIGH",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": true,
+        "threshold_crossed": 4
+      },
+      "trust_score": 60,
+      "trust_deductions": {
+        "silent_witnessing": 20,
+        "normalization_acceptance": 20
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Recognize this as commons degradation", "Do not normalize as 'small thing'", "Share factual awareness"],
+          "medium": ["Anonymous reporting to authorities", "Create community signal", "Document pattern if repeated"],
+          "high": ["Trigger authority attention formally", "Connect with environmental groups", "Request surveillance"]
+        },
+        "authority": {
+          "immediate": ["Log incident in official records", "Issue notice to enforcement", "Convene awareness meeting"],
+          "systematic": ["Request periodic monitoring", "Establish reporting channel", "Document cumulative impact"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["பொது வள சீரழிவாக அங்கீகரிக்கவும்", "இயல்பாக்க வேண்டாம்", "விழிப்புணர்வு பகிர்ந்து கொள்ளுங்கள்"],
+          "medium": ["அநாமதேய அறிக்கை", "சமூக சமிக்ஞை உருவாக்குங்கள்", "வடிவத்தை ஆவணப்படுத்துங்கள்"],
+          "high": ["அதிகார கவனம் தூண்டுங்கள்", "சுற்றுச்சூழல் குழுக்கள் இணைக்கவும்", "கண்காணிப்பு கோருங்கள்"]
+        }
+      }
+    },
+    {
+      "id": "river_bed_daytime",
+      "keywords": ["tractor", "excavator", "machine", "mechanized", "daytime", "பகல்", "அகழ்வு"],
+      "title": "பகல் நேர ஆற்றுமண் அகழ்வு",
+      "title_en": "Daytime Mechanized Sand Mining",
+      "nature": "High-visibility, scale-driven environmental violation",
+      "domain": "River System",
+      "context": "river_bed_daytime",
+      "law_intent": [
+        "Extraction must be regulated to prevent riverbed collapse (Article 48A)",
+        "Commercial exploitation requires strict permits and monitoring",
+        "Cumulative volume tracking is mandatory to protect commons"
+      ],
+      "law_intent_tamil": [
+        "ஆற்றுப்படுகை சரிவதைத் தடுக்க பிரித்தெடுத்தல் ஒழுங்குபடுத்தப்பட வேண்டும்",
+        "வணிக சுரண்டலுக்கு கண்டிப்பான அனுமதிகள் தேவை",
+        "ஒட்டுமொத்த அளவு கண்காணிப்பு அவசியம்"
+      ],
+      "trust_drift": [
+        "Commercial gain overrides commons protection",
+        "Local authority normalizes mechanized activity as 'development'",
+        "Visibility misread as legitimacy"
+      ],
+      "trust_drift_tamil": [
+        "வணிக ஆதாயம் பொது வள பாதுகாப்பை மீறுகிறது",
+        "உள்ளூர் அதிகாரம் இயந்திர செயல்பாட்டை இயல்பாக்குகிறது",
+        "தெரிவுநிலை சட்டபூர்வமாக தவறாக படிக்கப்படுகிறது"
+      ],
+      "ppdtf": {
+        "people": {
+          "offender": {
+            "role": "Mechanized mining operator",
+            "intent": "Profit through large-volume extraction",
+            "law_break": ["Exceeds permitted extraction limits", "Treats visibility as legitimacy"]
+          },
+          "facilitator": {
+            "role": "Truck operators and site supervisors",
+            "intent": "Continuous material movement",
+            "law_break": ["Enables illegal volume escalation"]
+          },
+          "witness": {
+            "role": "General public and commuters",
+            "intent": "Assumes legality due to daylight operation",
+            "law_break": ["Equates openness with authorization"]
+          },
+          "enforcement_authority": {
+            "role": "Mining & Revenue officials",
+            "intent": "Permit enforcement",
+            "law_break": ["Fails to verify quantity compliance"]
+          },
+          "state": {
+            "role": "Public trust holder",
+            "intent": "Environmental protection",
+            "law_break": ["Allows normalization through non-intervention"]
+          },
+          "environment": {
+            "role": "Silent stakeholder",
+            "intent": "Riverbed stability",
+            "law_break": ["Suffers irreversible structural loss"]
+          }
+        },
+        "process": {
+          "expected": "Limited extraction with strict monitoring",
+          "expected_intent": ["Prevent mechanized over-exploitation"],
+          "observed": "Continuous excavation without oversight",
+          "breaks": ["Quantity enforcement absent", "Permit intent diluted"]
+        },
+        "data": {
+          "expected": ["Daily extraction logs", "Weighbridge data"],
+          "expected_intent": ["Enable scale accountability"],
+          "observed": "Partially fabricated or unverified",
+          "breaks": ["Underreporting", "Manual manipulation"]
+        },
+        "technology": {
+          "expected": ["Weighbridges", "GPS tracking on trucks", "Satellite monitoring"],
+          "expected_intent": ["Track actual volumes"],
+          "observed": "Technology bypassed or absent",
+          "breaks": ["No real-time volume verification"]
+        },
+        "facility": {
+          "asset": "River bed (commons)",
+          "expected": "Protected from industrial-scale extraction",
+          "expected_intent": ["Maintain structural integrity"],
+          "observed": "Treated as industrial quarry",
+          "breaks": ["Ecological limits ignored"]
+        }
+      },
+      "impact_level": "HIGH",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": true,
+        "threshold_crossed": 4
+      },
+      "trust_score": 40,
+      "trust_deductions": {
+        "active_participation": 40,
+        "visibility_misinterpretation": 20
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Question visible operations", "Do not assume legality", "Seek permit information"],
+          "medium": ["Demand volume tracking", "Document scale with photos", "Report to Mining Department"],
+          "high": ["Escalate to environmental bodies", "Request weighbridge installation", "Demand permit verification"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["தெரியும் செயல்பாடுகளை கேள்வி கேளுங்கள்", "சட்டபூர்வமாக கருத வேண்டாம்", "அனுமதி தகவல் கோருங்கள்"],
+          "medium": ["அளவு கண்காணிப்பு கோருங்கள்", "புகைப்படங்களுடன் ஆவணப்படுத்துங்கள்", "சுரங்க துறைக்கு புகார்"],
+          "high": ["சுற்றுச்சூழல் அமைப்புகளுக்கு அனுப்புங்கள்", "நிறுவுதல் கோருங்கள்", "சரிபார்ப்பு கோருங்கள்"]
+        }
+      }
+    },
+    {
+      "id": "river_bank_ongoing",
+      "keywords": ["water", "pump", "pumping", "irrigation", "ongoing", "தண்ணீர்", "பம்ப்"],
+      "title": "தொடர்ச்சியான ஆற்றங்கரை நீர்பம்பிங்",
+      "title_en": "Continuous River Bank Water Pumping",
+      "nature": "Chronic, low-intensity environmental degradation",
+      "domain": "River System",
+      "context": "river_bank_ongoing",
+      "law_intent": [
+        "Water withdrawal requires permits with quantity limits",
+        "Cumulative extraction must not exceed sustainable levels",
+        "Downstream users have equal rights to water commons"
+      ],
+      "law_intent_tamil": [
+        "நீர் எடுப்புக்கு அளவு வரம்புகளுடன் அனுமதிகள் தேவை",
+        "ஒட்டுமொத்த பிரித்தெடுத்தல் நிலையான அளவை மீறக்கூடாது",
+        "கீழ்நிலை பயனர்களுக்கு சம உரிமைகள் உள்ளன"
+      ],
+      "trust_drift": [
+        "Individual farm need prioritized over commons sustainability",
+        "Chronic pumping normalized as 'necessary for livelihood'",
+        "Cumulative impact invisible due to gradual depletion"
+      ],
+      "trust_drift_tamil": [
+        "தனிநபர் விவசாய தேவை பொது வள நிலைத்தன்மையை விட முன்னுரிமை",
+        "நாள்பட்ட பம்பிங் 'வாழ்வாதாரத்திற்கு அவசியம்' என இயல்பாக்கப்பட்டது",
+        "படிப்படியான குறைப்பு காரணமாக ஒட்டுமொத்த தாக்கம் கண்ணுக்கு தெரியாது"
+      ],
+      "ppdtf": {
+        "people": {
+          "offender": {
+            "role": "Local farmers using pumps",
+            "intent": "Sustain agriculture",
+            "law_break": ["Ignores cumulative impact limits"]
+          },
+          "facilitator": {
+            "role": "Pump suppliers / fuel vendors",
+            "intent": "Routine sales",
+            "law_break": ["Indirectly sustains over-extraction"]
+          },
+          "local_authority": {
+            "role": "Village administration",
+            "intent": "Avoid farmer conflict",
+            "law_break": ["Fails to regulate repetition"]
+          },
+          "state": {
+            "role": "Groundwater trustee",
+            "intent": "Resource sustainability",
+            "law_break": ["No long-term extraction policy enforcement"]
+          },
+          "environment": {
+            "role": "River bank ecosystem",
+            "intent": "Soil and vegetation stability",
+            "law_break": ["Gradual erosion unaddressed"]
+          }
+        },
+        "process": {
+          "expected": "Seasonal, regulated water use",
+          "expected_intent": ["Prevent depletion"],
+          "observed": "Continuous pumping over months",
+          "breaks": ["No withdrawal limits"]
+        },
+        "data": {
+          "expected": ["Pumping hours logged", "Flow rate meters"],
+          "expected_intent": ["Track cumulative extraction"],
+          "observed": "No data collection",
+          "breaks": ["Withdrawal volumes unknown"]
+        },
+        "technology": {
+          "expected": ["Flow meters", "Automatic shutoff systems"],
+          "expected_intent": ["Enforce limits"],
+          "observed": "No monitoring technology",
+          "breaks": ["Unregulated extraction"]
+        },
+        "facility": {
+          "asset": "River water (commons)",
+          "expected": "Shared resource with sustainable limits",
+          "expected_intent": ["Preserve for all users"],
+          "observed": "Treated as unlimited farm input",
+          "breaks": ["Sustainability ignored"]
+        }
+      },
+      "impact_level": "MEDIUM-HIGH",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": false,
+        "threshold_crossed": 3
+      },
+      "trust_score": 50,
+      "trust_deductions": {
+        "livelihood_justification": 30,
+        "cumulative_ignorance": 20
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Recognize as cumulative harm", "Question 'necessary' narrative", "Share depletion awareness"],
+          "medium": ["Report to Water Resources Dept", "Request flow meters", "Document pumping hours"],
+          "high": ["Demand permit system", "Request downstream impact study", "Advocate for sustainable limits"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["ஒட்டுமொத்த தீங்காக அங்கீகரிக்கவும்", "'அவசியம்' கதையை கேள்வி கேளுங்கள்", "குறைப்பு விழிப்புணர்வு பகிரவும்"],
+          "medium": ["நீர் வள துறைக்கு புகார்", "ஓட்ட மீட்டர்கள் கோருங்கள்", "பம்பிங் நேரங்களை ஆவணப்படுத்துங்கள்"],
+          "high": ["அனுமதி அமைப்பு கோருங்கள்", "கீழ்நிலை தாக்க ஆய்வு கோருங்கள்", "நிலையான வரம்புகளுக்காக வாதிடுங்கள்"]
+        }
+      }
+    },
+    {
+      "id": "river_bank_permanent",
+      "keywords": ["construction", "building", "permanent", "encroachment", "கட்டிடம்", "நிரந்தர"],
+      "title": "ஆற்றங்கரை நிரந்தர கட்டிடம்",
+      "title_en": "Permanent River Bank Construction",
+      "nature": "Irreversible encroachment",
+      "domain": "River System",
+      "context": "river_bank_permanent",
+      "law_intent": [
+        "Riverbanks must remain clear for flood absorption (disaster management)",
+        "Construction setback distances are mandatory (town planning laws)",
+        "Public access to commons must be preserved (Public Trust Doctrine)"
+      ],
+      "law_intent_tamil": [
+        "வெள்ள உறிஞ்சுதலுக்காக ஆற்றங்கரைகள் தெளிவாக இருக்க வேண்டும்",
+        "கட்டுமான பின்வாங்கல் தூரங்கள் கட்டாயம்",
+        "பொது வளங்களுக்கான பொது அணுகல் பாதுகாக்கப்பட வேண்டும்"
+      ],
+      "trust_drift": [
+        "Private property claims override flood safety and commons access",
+        "Gradual encroachment becomes normalized and legalized post-facto",
+        "Enforcement delayed until damage is irreversible"
+      ],
+      "trust_drift_tamil": [
+        "தனியார் சொத்து உரிமைகள் வெள்ள பாதுகாப்பை மீறுகின்றன",
+        "படிப்படியான ஆக்கிரமிப்பு இயல்பாக்கப்பட்டு பின்னர் சட்டப்பூர்வமாக்கப்படுகிறது",
+        "அமலாக்கம் மீளமுடியாத சேதம் வரை தாமதமாகிறது"
+      ],
+      "ppdtf": {
+        "people": {
+          "offender": {
+            "role": "Private landholder / developer",
+            "intent": "Secure permanent control",
+            "law_break": ["Encroaches public commons"]
+          },
+          "local_authority": {
+            "role": "Panchayat / Municipality",
+            "intent": "Approve or ignore construction",
+            "law_break": ["Violates land-use norms"]
+          },
+          "enforcement_authority": {
+            "role": "PWD / Revenue officials",
+            "intent": "Protect river margins",
+            "law_break": ["Delayed or selective enforcement"]
+          },
+          "state": {
+            "role": "Trustee of commons",
+            "intent": "Flood and ecology protection",
+            "law_break": ["Allows irreversible alteration"]
+          }
+        },
+        "process": {
+          "expected": "No-build buffer enforcement",
+          "expected_intent": ["Prevent flood risk and commons loss"],
+          "observed": "Permanent structure legalized post-facto",
+          "breaks": ["Rule bent after violation"]
+        },
+        "data": {
+          "expected": ["Setback distance surveys", "Flood risk assessments"],
+          "expected_intent": ["Prevent dangerous construction"],
+          "observed": "Assessments skipped or ignored",
+          "breaks": ["Risk data absent at approval"]
+        },
+        "technology": {
+          "expected": ["Satellite monitoring", "GIS mapping of encroachments"],
+          "expected_intent": ["Early detection"],
+          "observed": "No proactive monitoring",
+          "breaks": ["Violations detected only after completion"]
+        },
+        "facility": {
+          "asset": "River floodplain (commons)",
+          "expected": "Open for flood absorption and public access",
+          "expected_intent": ["Public safety and commons preservation"],
+          "observed": "Privatized through construction",
+          "breaks": ["Irreversible commons loss"]
+        }
+      },
+      "impact_level": "VERY HIGH",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": true,
+        "threshold_crossed": 4
+      },
+      "trust_score": 35,
+      "trust_deductions": {
+        "permanent_damage": 45,
+        "post_facto_legalization": 20
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Recognize as irreversible harm", "Question approval legitimacy", "Share flood risk awareness"],
+          "medium": ["File complaint with Revenue Dept", "Request setback distance survey", "Document structure details"],
+          "high": ["Demand structure removal", "File public interest litigation", "Request flood risk assessment"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["மீளமுடியாத தீங்காக அங்கீகரிக்கவும்", "அனுமதி சட்டபூர்வத்தை கேள்வி கேளுங்கள்", "வெள்ள அபாய விழிப்புணர்வு பகிரவும்"],
+          "medium": ["வருவாய் துறைக்கு புகார்", "பின்வாங்கல் தூர ஆய்வு கோருங்கள்", "கட்டமைப்பு விவரங்களை ஆவணப்படுத்துங்கள்"],
+          "high": ["கட்டமைப்பு அகற்றல் கோருங்கள்", "பொது நல வழக்கு தாக்கல் செய்யுங்கள்", "வெள்ள அபாய மதிப்பீடு கோருங்கள்"]
+        }
+      }
+    },
+    {
+      "id": "river_flow_night",
+      "keywords": ["effluent", "industrial", "night", "pollution", "chemical", "இரவு", "கழிவு"],
+      "title": "இரவு நேர தொழிற்சாலை கழிவுநீர் வெளியீடு",
+      "title_en": "Night-time Industrial Effluent Discharge",
+      "nature": "Hidden industrial pollution",
+      "domain": "River System",
+      "context": "river_flow_night",
+      "law_intent": [
+        "Effluent discharge requires consent and treatment (Water Act 1974)",
+        "Pollution Control Board monitoring is mandatory",
+        "Zero untreated discharge policy (Environment Protection Act 1986)"
+      ],
+      "law_intent_tamil": [
+        "கழிவுநீர் வெளியேற்றத்திற்கு சம்மதம் மற்றும் சுத்திகரிப்பு தேவை",
+        "மாசு கட்டுப்பாடு வாரிய கண்காணிப்பு கட்டாயம்",
+        "சுத்திகரிக்கப்படாத வெளியேற்றம் பூஜ்யம் கொள்கை"
+      ],
+      "trust_drift": [
+        "Night-time discharge avoids detection and monitoring",
+        "Economic activity prioritized over water quality and public health",
+        "Pollution invisible until health crisis occurs"
+      ],
+      "trust_drift_tamil": [
+        "இரவு நேர வெளியேற்றம் கண்டறிதல் தவிர்க்கப்படுகிறது",
+        "பொருளாதார செயல்பாடு நீர் தரம் மீது முன்னுரிமை",
+        "சுகாதார நெருக்கடி வரை மாசுபாடு கண்ணுக்கு தெரியாது"
+      ],
+      "ppdtf": {
+        "people": {
+          "offender": {
+            "role": "Industrial operator",
+            "intent": "Bypass treatment expense through concealment",
+            "law_break": ["Deliberate violation to avoid costs"]
+          },
+          "enforcement_authority": {
+            "role": "Pollution Control Board",
+            "intent": "Monitor effluent discharge",
+            "law_break": ["Inspection limited to daytime only"]
+          },
+          "environment": {
+            "role": "Aquatic ecosystem",
+            "intent": "Maintain water quality",
+            "law_break": ["Acute toxicity exposure"]
+          }
+        },
+        "process": {
+          "expected": "Continuous effluent treatment before discharge",
+          "expected_intent": ["Prevent contamination"],
+          "observed": "Night-only untreated discharge",
+          "breaks": ["Temporal evasion of monitoring"]
+        },
+        "data": {
+          "expected": ["Continuous effluent quality monitoring", "24/7 online sensors"],
+          "expected_intent": ["Real-time detection"],
+          "observed": "No nighttime data capture",
+          "breaks": ["Monitoring gap exploited"]
+        },
+        "technology": {
+          "expected": ["Real-time pollution sensors", "Automated alerts", "CCTV at discharge points"],
+          "expected_intent": ["24/7 monitoring"],
+          "observed": "No continuous monitoring technology",
+          "breaks": ["Night violations undetected"]
+        },
+        "facility": {
+          "asset": "River water quality (commons)",
+          "expected": "Protected from contamination",
+          "expected_intent": ["Public health and aquatic life"],
+          "observed": "Used as industrial drain at night",
+          "breaks": ["Health hazard created"]
+        }
+      },
+      "impact_level": "CRITICAL",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": false,
+        "threshold_crossed": 3
+      },
+      "trust_score": 25,
+      "trust_deductions": {
+        "deliberate_concealment": 50,
+        "health_hazard": 25
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Recognize as severe health threat", "Do not ignore industrial odors", "Note timing patterns"],
+          "medium": ["Report to Pollution Control Board immediately", "Collect water samples if safe", "Document timing and frequency"],
+          "high": ["Demand installation of continuous monitoring", "Request surprise night inspections", "File criminal complaint"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["கடுமையான சுகாதார அச்சுறுத்தலாக அங்கீகரிக்கவும்", "தொழிற்சாலை வாசனைகளை புறக்கணிக்க வேண்டாம்", "நேர முறைகளை கவனிக்கவும்"],
+          "medium": ["மாசு கட்டுப்பாடு வாரியத்திற்கு உடனடியாக புகார்", "பாதுகாப்பாக இருந்தால் நீர் மாதிரிகள் சேகரிக்கவும்", "நேரம் மற்றும் அதிர்வெண் ஆவணப்படுத்துங்கள்"],
+          "high": ["தொடர்ச்சியான கண்காணிப்பு நிறுவுதல் கோருங்கள்", "திடீர் இரவு ஆய்வுகள் கோருங்கள்", "குற்றவியல் புகார் தாக்கல் செய்யுங்கள்"]
+        }
+      }
+    },
+    {
+      "id": "river_flow_allday",
+      "keywords": ["sewage", "waste", "allday", "continuous", "pollution", "கழிவுநீர்", "தொடர்ச்சி"],
+      "title": "தொடர்ச்சியான கழிவுநீர் மாசுபாடு",
+      "title_en": "Continuous Sewage Pollution",
+      "nature": "Institutionalized environmental neglect",
+      "domain": "River System",
+      "context": "river_flow_allday",
+      "law_intent": [
+        "Sewage must be treated before discharge (Water Act 1974)",
+        "Municipal bodies responsible for treatment plants",
+        "Public health protection is mandatory (Article 21)"
+      ],
+      "law_intent_tamil": [
+        "கழிவுநீர் வெளியேற்றத்திற்கு முன் சுத்திகரிக்கப்பட வேண்டும்",
+        "நகராட்சி அமைப்புகள் சுத்திகரிப்பு நிலையங்களுக்கு பொறுப்பு",
+        "பொது சுகாதார பாதுகாப்பு கட்டாயம்"
+      ],
+      "trust_drift": [
+        "Treatment costs avoided through direct dumping",
+        "Health impact normalized as 'always been this way'",
+        "Governance failure becomes invisible routine"
+      ],
+      "trust_drift_tamil": [
+        "நேரடி கொட்டுதல் மூலம் சுத்திகரிப்பு செலவுகள் தவிர்க்கப்படுகின்றன",
+        "சுகாதார தாக்கம் 'எப்போதும் இப்படித்தான்' என இயல்பாக்கப்பட்டது",
+        "ஆளுமை தோல்வி கண்ணுக்கு தெரியாத வழக்கமாகிறது"
+      ],
+      "ppdtf": {
+        "people": {
+          "authority": {
+            "role": "Municipal administration",
+            "intent": "Deferred compliance due to budget constraints",
+            "law_break": ["Accepts chronic pollution"]
+          },
+          "public": {
+            "role": "Urban residents",
+            "intent": "Resigned acceptance",
+            "law_break": ["Normalizes rights erosion"]
+          },
+          "state": {
+            "role": "Service provider",
+            "intent": "Public health protection",
+            "law_break": ["Failure to upgrade systems"]
+          }
+        },
+        "process": {
+          "expected": "Sewage treatment before discharge",
+          "expected_intent": ["Prevent waterborne diseases"],
+          "observed": "Open drain discharge all day",
+          "breaks": ["Known violation tolerated"]
+        },
+        "data": {
+          "expected": ["Water quality testing", "Disease surveillance"],
+          "expected_intent": ["Track health impact"],
+          "observed": "No systematic testing",
+          "breaks": ["Health impact invisible"]
+        },
+        "technology": {
+          "expected": ["Sewage treatment plants", "Oxidation ponds", "Filtration systems"],
+          "expected_intent": ["Remove pathogens"],
+          "observed": "Plants broken or non-existent",
+          "breaks": ["Infrastructure failure"]
+        },
+        "facility": {
+          "asset": "River as water source (commons)",
+          "expected": "Clean water for downstream users",
+          "expected_intent": ["Health and livelihood"],
+          "observed": "River becomes open sewer",
+          "breaks": ["Complete commons degradation"]
+        }
+      },
+      "impact_level": "HIGH",
+      "impact_factors": {
+        "facility_damage": true,
+        "data_absence": true,
+        "repeated_occurrence": true,
+        "social_normalization": true,
+        "threshold_crossed": 4
+      },
+      "trust_score": 30,
+      "trust_deductions": {
+        "resigned_acceptance": 40,
+        "governance_failure": 30
+      },
+      "user_role": "witness",
+      "next_actions": {
+        "witness": {
+          "low": ["Recognize as governance failure not inevitability", "Question 'always been' narrative", "Share health impact data"],
+          "medium": ["Petition municipal corporation", "Demand treatment plant timeline", "Document health incidents"],
+          "high": ["File public interest litigation", "Demand infrastructure upgrade budget", "Request court-monitored compliance"]
+        }
+      },
+      "next_actions_tamil": {
+        "witness": {
+          "low": ["தவிர்க்க முடியாததாக அல்ல ஆளுமை தோல்வியாக அங்கீகரிக்கவும்", "'எப்போதும் இருந்தது' கதையை கேள்வி கேளுங்கள்", "சுகாதார தாக்க தரவு பகிரவும்"],
+          "medium": ["நகராட்சி நிறுவனத்திற்கு மனு", "சுத்திகரிப்பு நிலைய காலவரிசை கோருங்கள்", "சுகாதார சம்பவங்களை ஆவணப்படுத்துங்கள்"],
+          "high": ["பொது நல வழக்கு தாக்கல் செய்யுங்கள்", "உள்கட்டமைப்பு மேம்படுத்தல் பட்ஜெட் கோருங்கள்", "நீதிமன்ற கண்காணிப்பு இணக்கம் கோருங்கள்"]
+        }
+      }
+    }
+  ]
+}

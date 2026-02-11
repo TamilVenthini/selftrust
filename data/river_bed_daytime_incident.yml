@@ -1,0 +1,85 @@
+app_name: SelfTrust
+
+scenario:
+  title: "பகல் நேர ஆற்றுமண் அகழ்வு"
+  nature: "High-visibility, scale-driven environmental violation"
+  location_context: "River bed accessed openly during daytime"
+
+PPDTF:
+  People:
+    offender:
+      role: "Mechanized mining operator"
+      intent:
+        commercial: "Profit through large-volume extraction"
+      law_intent_break:
+        - "Exceeds permitted extraction limits"
+        - "Treats visibility as legitimacy"
+
+    facilitator:
+      role: "Truck operators and site supervisors"
+      intent:
+        operational: "Continuous material movement"
+      law_intent_break:
+        - "Enables illegal volume escalation"
+
+    witness:
+      role: "General public and commuters"
+      intent:
+        social: "Assumes legality due to daylight operation"
+      law_intent_break:
+        - "Equates openness with authorization"
+
+    enforcement_authority:
+      role: "Mining & Revenue officials"
+      intent:
+        statutory: "Permit enforcement"
+      law_intent_break:
+        - "Fails to verify quantity compliance"
+
+    state:
+      role: "Public trust holder"
+      intent:
+        constitutional: "Environmental protection"
+      law_intent_break:
+        - "Allows normalization through non-intervention"
+
+    environment:
+      role: "Silent stakeholder"
+      intent:
+        ecological: "Riverbed stability"
+      law_intent_break:
+        - "Suffers irreversible structural loss"
+
+  Process:
+    expected:
+      description: "Limited extraction with strict monitoring"
+      law_intent:
+        - "Prevent mechanized over-exploitation"
+    observed:
+      description: "Continuous excavation without oversight"
+      process_break:
+        - "Quantity enforcement absent"
+        - "Permit intent diluted"
+
+  Data:
+    expected:
+      types:
+        - "Daily extraction logs"
+        - "Weighbridge data"
+      law_intent:
+        - "Enable scale accountability"
+    observed:
+      condition: "Partially fabricated or unverified"
+      data_break:
+        - "Underreporting"
+        - "Manual manipulation"
+
+Failure_Summary:
+  failure_type: "Visible violation misread as legal activity"
+  constitutional_concern:
+    - "Article 48A diluted"
+    - "Public trust doctrine weakened"
+
+impact_evaluation:
+  impact_level:
+    value: "HIGH"

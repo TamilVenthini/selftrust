@@ -1,0 +1,46 @@
+app_name: SelfTrust
+
+scenario:
+  title: "தொடர்ச்சியான கழிவுநீர் மாசுபாடு"
+  nature: "Institutionalized environmental neglect"
+  location_context: "Urban river stretch"
+
+PPDTF:
+  People:
+    authority:
+      role: "Municipal administration"
+      intent:
+        infrastructural: "Deferred compliance"
+      law_intent_break:
+        - "Accepts chronic pollution"
+
+    public:
+      role: "Urban residents"
+      intent:
+        adaptive: "Resigned acceptance"
+      law_intent_break:
+        - "Normalizes rights erosion"
+
+    state:
+      role: "Service provider"
+      intent:
+        constitutional: "Public health protection"
+      law_intent_break:
+        - "Failure to upgrade systems"
+
+  Process:
+    expected:
+      description: "Sewage treatment before discharge"
+    observed:
+      description: "Open drain discharge all day"
+      process_break:
+        - "Known violation tolerated"
+
+Failure_Summary:
+  failure_type: "Known harm with no corrective urgency"
+  constitutional_concern:
+    - "Right to life degraded through inaction"
+
+impact_evaluation:
+  impact_level:
+    value: "HIGH"

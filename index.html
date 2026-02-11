@@ -25,7 +25,6 @@
       margin: 0 auto;
     }
 
-    /* Header */
     .header {
       text-align: center;
       padding: 30px 0;
@@ -62,7 +61,6 @@
       margin-top: 10px;
     }
 
-    /* Section */
     section {
       background: #1e293b;
       border: 1px solid #334155;
@@ -99,7 +97,6 @@
       margin-bottom: 15px;
     }
 
-    /* Form Elements */
     select, textarea, button {
       width: 100%;
       padding: 12px;
@@ -144,7 +141,6 @@
       transform: none;
     }
 
-    /* Read-only boxes */
     .law-box, .drift-box, .ppdtf-box {
       background: #0f172a;
       border: 1px solid #475569;
@@ -184,23 +180,6 @@
       left: 0;
     }
 
-    .ppdtf-grid {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 10px;
-      font-size: 0.95em;
-    }
-
-    .ppdtf-grid .label {
-      color: #60a5fa;
-      font-weight: bold;
-    }
-
-    .ppdtf-grid .value {
-      color: #cbd5e1;
-    }
-
-    /* Result Output */
     .result-box {
       background: #0f172a;
       border: 2px solid #22d3ee;
@@ -221,12 +200,12 @@
       font-size: 0.9em;
     }
 
-    .impact-high {
+    .impact-high, .impact-critical, .impact-very-high {
       background: #dc2626;
       color: white;
     }
 
-    .impact-medium {
+    .impact-medium, .impact-medium-high {
       background: #f59e0b;
       color: white;
     }
@@ -248,18 +227,32 @@
       display: none;
     }
 
-    /* Responsive */
+    .role-warning {
+      background: #1e293b;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 4px;
+    }
+
+    .role-warning h4 {
+      color: #f59e0b;
+      margin-bottom: 8px;
+      font-size: 0.95em;
+    }
+
+    .role-warning p {
+      color: #cbd5e1;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
     @media (max-width: 600px) {
       .header h1 {
         font-size: 1.8em;
       }
-
       section {
         padding: 20px;
-      }
-
-      .ppdtf-grid {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -287,7 +280,7 @@
       <p class="helper-text">Identifies the system affected</p>
       <p class="tamil-helper">பாதிக்கப்படும் அமைப்பை தேர்வு செய்யவும்</p>
 
-      <select id="domain" onchange="updateContext()">
+      <select id="domain">
         <option value="River System">River System / ஆற்று அமைப்பு</option>
         <option value="Forest Commons" disabled>Forest Commons / காடு பொது வளம் (Coming soon)</option>
         <option value="Groundwater" disabled>Groundwater / நிலத்தடி நீர் (Coming soon)</option>
@@ -302,16 +295,44 @@
 
       <select id="context">
         <option value="">Select context...</option>
-        <option value="River Bed – Night-time">River Bed, Night → Low visibility violations (sand extraction, gravel mining)</option>
-        <option value="River Bed – Daytime">River Bed, Daytime → Visible large-scale operations (mechanized mining)</option>
-        <option value="River Bank – Continuous">River Bank, Ongoing → Repeated activities (water pumping, agriculture)</option>
-        <option value="River Bank – Permanent">River Bank, Permanent → Structures built (construction, encroachment)</option>
-        <option value="River Flow – Night-time">River Flow, Night → Hidden contamination (industrial effluent discharge)</option>
-        <option value="River Flow – Continuous">River Flow, All Day → Constant pollution (sewage, waste dumping)</option>
+        <option value="river_bed_night">River Bed – Night → Low visibility violations (sand extraction)</option>
+        <option value="river_bed_daytime">River Bed – Daytime → Large-scale operations (mechanized mining)</option>
+        <option value="river_bank_ongoing">River Bank – Ongoing → Repeated activities (water pumping)</option>
+        <option value="river_bank_permanent">River Bank – Permanent → Structures (construction, encroachment)</option>
+        <option value="river_flow_night">River Flow – Night → Hidden contamination (industrial effluent)</option>
+        <option value="river_flow_allday">River Flow – All Day → Constant pollution (sewage dumping)</option>
       </select>
     </section>
 
-    <!-- SECTION 3: User Observation -->
+    <!-- SECTION 3: Role Selection (NEW!) -->
+    <section>
+      <h2>Who Are You in This Situation?</h2>
+      <p class="helper-text">Your role determines responsibility and appropriate guidance</p>
+      <p class="tamil-helper">உங்கள் பங்கு பொறுப்பையும் சரியான வழிகாட்டுதலையும் தீர்மானிக்கிறது</p>
+
+      <select id="userRole">
+        <option value="">Select your role...</option>
+        <option value="witness">👁️ Witness / சாட்சி → I observed this happening</option>
+        <option value="offender">⚠️ Offender / குற்றவாளி → I am/was involved in this activity</option>
+        <option value="facilitator">🤝 Facilitator / உதவியாளர் → I enable/enabled this (transport, supplies, etc.)</option>
+        <option value="local_authority">🏛️ Local Authority / உள்ளூர் அதிகாரி → I have governance responsibility</option>
+        <option value="enforcement">⚖️ Enforcement Authority / அமலாக்க அதிகாரி → I am responsible for enforcement</option>
+      </select>
+
+      <div class="role-warning">
+        <h4>⚠️ Role Honesty Matters</h4>
+        <p>
+          Your role selection is <strong>confidential</strong> and used only for analysis. 
+          Honest role identification ensures you receive appropriate guidance tailored to your actual responsibility.
+        </p>
+        <p style="margin-top: 8px; color: #94a3b8;">
+          இந்த தகவல் ரகசியமானது மற்றும் பகுப்பாய்வுக்கு மட்டுமே பயன்படுத்தப்படும். 
+          நேர்மையான பங்கு அடையாளம் சரியான வழிகாட்டுதலை உறுதி செய்கிறது.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: User Observation -->
     <section>
       <h2>Describe What You Observed</h2>
       <p class="helper-text">Describe only what you saw. No judgement.</p>
@@ -322,49 +343,41 @@
       <button onclick="analyze()" id="analyzeBtn">Analyze Situation / சம்பவத்தை பகுப்பாய்வு செய்க</button>
     </section>
 
-    <!-- SECTION 4: Law Intent (Initially Hidden) -->
+    <!-- SECTION 5: Law Intent (Initially Hidden) -->
     <section id="lawSection" class="hidden">
       <h2>Relevant Law Intent</h2>
       <div class="law-box">
         <h3>Constitutional & Statutory Principles:</h3>
-        <ul id="lawList">
-          <!-- Populated by JS -->
-        </ul>
+        <ul id="lawList"></ul>
       </div>
-
       <p class="tamil-helper" style="margin-top: 15px;">
         சட்ட நோக்கம்:<br>
-        <span id="lawTamil"><!-- Populated by JS --></span>
+        <span id="lawTamil"></span>
       </p>
     </section>
 
-    <!-- SECTION 5: Trust Drift (Initially Hidden) -->
+    <!-- SECTION 6: Trust Drift (Initially Hidden) -->
     <section id="driftSection" class="hidden">
       <h2>Trust Drift Detected</h2>
       <div class="drift-box">
         <h3>Where Trust Boundaries Break:</h3>
-        <ul id="driftList">
-          <!-- Populated by JS -->
-        </ul>
+        <ul id="driftList"></ul>
       </div>
-
       <p class="tamil-helper" style="margin-top: 15px;">
         நம்பிக்கை சிதைவு:<br>
-        <span id="driftTamil"><!-- Populated by JS --></span>
+        <span id="driftTamil"></span>
       </p>
     </section>
 
-    <!-- SECTION 6: PPDTF Analysis (Initially Hidden) -->
+    <!-- SECTION 7: PPDTF Analysis (Initially Hidden) -->
     <section id="ppdtfSection" class="hidden">
       <h2>PPDTF Analysis</h2>
       <div class="ppdtf-box">
-        <div id="ppdtfBreakdown">
-          <!-- Populated dynamically by JavaScript -->
-        </div>
+        <div id="ppdtfBreakdown"></div>
       </div>
     </section>
 
-    <!-- SECTION 7: Impact & Trust Score (Initially Hidden) -->
+    <!-- SECTION 8: Impact & Trust Score (Initially Hidden) -->
     <section id="impactSection" class="hidden">
       <h2>Impact Evaluation</h2>
       
@@ -384,30 +397,33 @@
 
       <div class="law-box">
         <h3>Score Deductions:</h3>
-        <ul id="deductionsList">
-          <!-- Populated by JS -->
-        </ul>
+        <ul id="deductionsList"></ul>
       </div>
     </section>
 
-    <!-- SECTION 8: Next Actions (Initially Hidden) -->
+    <!-- SECTION 9: Next Actions (Initially Hidden) -->
     <section id="actionsSection" class="hidden">
       <h2>What Should YOU Do Now?</h2>
-      <p id="userRole" style="color: #22d3ee; font-weight: bold; margin-bottom: 15px;">Your Role</p>
+      <p id="userRoleDisplay" style="color: #22d3ee; font-weight: bold; margin-bottom: 15px;">Your Role</p>
+
+      <div id="responsibilityContext" class="hidden" style="background: #1e293b; padding: 15px; margin-bottom: 15px; border-left: 4px solid #f59e0b; border-radius: 4px;">
+        <h3 style="color: #f59e0b; font-size: 1em; margin-bottom: 8px;">Your Responsibility:</h3>
+        <p id="responsibilityText" style="color: #cbd5e1; margin-bottom: 10px;"></p>
+        <h3 style="color: #f59e0b; font-size: 1em; margin-bottom: 8px;">Trust Impact:</h3>
+        <p id="trustImpactText" style="color: #cbd5e1;"></p>
+      </div>
 
       <div class="law-box">
         <h3>Recommended Actions:</h3>
-        <ul id="actionsList">
-          <!-- Populated by JS -->
-        </ul>
+        <ul id="actionsList"></ul>
       </div>
 
       <p class="tamil-helper" style="margin-top: 15px;">
-        <span id="actionsTamil"><!-- Populated by JS --></span>
+        <span id="actionsTamil"></span>
       </p>
     </section>
 
-    <!-- SECTION 9: System Interpretation (Initially Hidden) -->
+    <!-- SECTION 10: System Interpretation (Initially Hidden) -->
     <section id="resultSection" class="hidden">
       <h2>Complete System Interpretation (Printable Report)</h2>
       <div class="result-box" id="result">

@@ -1,0 +1,53 @@
+app_name: SelfTrust
+
+scenario:
+  title: "ஆற்றங்கரை நிரந்தர கட்டிடம்"
+  nature: "Irreversible encroachment"
+  location_context: "River floodplain / bank"
+
+PPDTF:
+  People:
+    offender:
+      role: "Private landholder / developer"
+      intent:
+        ownership: "Secure permanent control"
+      law_intent_break:
+        - "Encroaches public commons"
+
+    local_authority:
+      role: "Panchayat / Municipality"
+      intent:
+        administrative: "Approve or ignore construction"
+      law_intent_break:
+        - "Violates land-use norms"
+
+    enforcement_authority:
+      role: "PWD / Revenue"
+      intent:
+        statutory: "Protect river margins"
+      law_intent_break:
+        - "Delayed or selective enforcement"
+
+    state:
+      role: "Trustee"
+      intent:
+        constitutional: "Flood and ecology protection"
+      law_intent_break:
+        - "Allows irreversible alteration"
+
+  Process:
+    expected:
+      description: "No-build buffer enforcement"
+    observed:
+      description: "Permanent structure legalized post-facto"
+      process_break:
+        - "Rule bent after violation"
+
+Failure_Summary:
+  failure_type: "Illegal permanence normalized"
+  constitutional_concern:
+    - "Public trust doctrine breached"
+
+impact_evaluation:
+  impact_level:
+    value: "VERY HIGH"

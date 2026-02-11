@@ -1,0 +1,46 @@
+app_name: SelfTrust
+
+scenario:
+  title: "இரவு நேர தொழிற்சாலை கழிவுநீர் வெளியீடு"
+  nature: "Hidden industrial pollution"
+  location_context: "Flowing river downstream of industrial unit"
+
+PPDTF:
+  People:
+    offender:
+      role: "Industrial operator"
+      intent:
+        cost_avoidance: "Bypass treatment expense"
+      law_intent_break:
+        - "Deliberate concealment"
+
+    enforcement_authority:
+      role: "Pollution Control Board"
+      intent:
+        statutory: "Monitor effluent discharge"
+      law_intent_break:
+        - "Inspection limited to daytime"
+
+    environment:
+      role: "Aquatic ecosystem"
+      intent:
+        ecological: "Maintain water quality"
+      law_intent_break:
+        - "Acute toxicity exposure"
+
+  Process:
+    expected:
+      description: "Continuous effluent treatment"
+    observed:
+      description: "Night-only discharge"
+      process_break:
+        - "Temporal evasion"
+
+Failure_Summary:
+  failure_type: "Intentional concealment"
+  constitutional_concern:
+    - "Article 21 violated (right to clean water)"
+
+impact_evaluation:
+  impact_level:
+    value: "CRITICAL"

@@ -1,0 +1,60 @@
+app_name: SelfTrust
+
+scenario:
+  title: "தொடர்ச்சியான ஆற்றங்கரை நீர்பம்பிங்"
+  nature: "Chronic, low-intensity environmental degradation"
+  location_context: "Agricultural river bank zone"
+
+PPDTF:
+  People:
+    offender:
+      role: "Local farmers using pumps"
+      intent:
+        livelihood: "Sustain agriculture"
+      law_intent_break:
+        - "Ignores cumulative impact limits"
+
+    facilitator:
+      role: "Pump suppliers / fuel vendors"
+      intent:
+        commercial: "Routine sales"
+      law_intent_break:
+        - "Indirectly sustains over-extraction"
+
+    local_authority:
+      role: "Village administration"
+      intent:
+        administrative: "Avoid farmer conflict"
+      law_intent_break:
+        - "Fails to regulate repetition"
+
+    state:
+      role: "Groundwater trustee"
+      intent:
+        constitutional: "Resource sustainability"
+      law_intent_break:
+        - "No long-term extraction policy enforcement"
+
+    environment:
+      role: "River bank ecosystem"
+      intent:
+        ecological: "Soil and vegetation stability"
+      law_intent_break:
+        - "Gradual erosion unaddressed"
+
+  Process:
+    expected:
+      description: "Seasonal, regulated water use"
+    observed:
+      description: "Continuous pumping over months"
+      process_break:
+        - "No withdrawal limits"
+
+Failure_Summary:
+  failure_type: "Slow harm ignored due to non-dramatic impact"
+  constitutional_concern:
+    - "Right to livelihood overriding right to environment"
+
+impact_evaluation:
+  impact_level:
+    value: "MEDIUM-HIGH"
